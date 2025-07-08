@@ -38,9 +38,22 @@
     <h3 data-i18n="address_title">Мекен-жайымыз:</h3>
     <p data-i18n="address_text">Amira Grand Hall мейрамханасы, Ақтөбе қаласы</p>
 
-    <div class="map-wrapper">
-      <iframe src="https://2gis.kz/embed/firm/70000001044509117" width="100%" height="300" frameborder="0" style="border-radius: 12px;"></iframe>
-    </div>
+   <div class="map-wrapper">
+  <div id="map" style="height:300px; border-radius: 12px;"></div>
+</div>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+  var map = L.map('map').setView([50.2838, 57.1670], 16);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+  L.marker([50.2838, 57.1670]).addTo(map)
+    .bindPopup('Amira Grand Hall')
+    .openPopup();
+</script>
+
 
     <h3 data-i18n="confirm_title">Тойға келуіңізді растауыңызды сұраймыз:</h3>
 
