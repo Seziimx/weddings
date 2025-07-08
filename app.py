@@ -90,12 +90,13 @@ def telegram_webhook():
             conn.close()
 
             if not rows:
-                send_message(from_chat, "Қонақтар әзірге тіркелмеген.")
+               send_message(from_chat, "Қонақтар әзірге тіркелмеген.")
             else:
-                message = "📋 Қонақтар тізімі:\n\n"
-                for row in rows:
-                    message += f"👤 {row[0]} | 📱 {row[1]} | 🤝 {row[2]} | 🎁 {row[3]} ₸\n"
-                send_message(from_chat, message)
+             message = "📋 Қонақтар тізімі:\n\n"
+    for idx, row in enumerate(rows, start=1):
+        message += f"{idx}. 👤 {row[0]} | 📱 {row[1]} | 🤝 {row[2]} | 🎁 {row[3]} ₸\n"
+    send_message(from_chat, message)
+
 
     return "ok", 200
 
