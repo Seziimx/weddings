@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: weddings-invite
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn app:app"
+    envVars:
+      - key: TELEGRAM_TOKEN
+        value: "7673390281:AAFMheucKDzWqIlss4Lp9jsn-Nou463io7Y"
+      - key: CHAT_ID
+        value: "1131108787"

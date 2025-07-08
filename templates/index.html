@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title data-i18n="title">Айдар & Гүлсезім — Тойға шақыру</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <canvas id="petals-canvas"></canvas>
+
+  <button id="lang-toggle" class="lang-btn">Русский</button>
+
+  <div class="hero">
+    <h2 data-i18n="hero_titles">ТОЙҒА ШАҚЫРУ</h2>
+    <h1 data-i18n="hero_title">Айдар & Гүлсезім</h1>
+    <p class="date" data-i18n="hero_date">05.09.2025</p>
+    <p class="venue" data-i18n="hero_place">Шаңырақ көтеру тойына шақырамыз!</p>
+    <a href="https://2gis.kz/aktobe/firm/70000001044509117" target="_blank" class="btn map-btn" data-i18n="hero_map">📍 Локацияны көру</a>
+  </div>
+
+  <div class="invitation-section fade-in">
+    <h2 data-i18n="invitation_title">Құрметті қонақтар,</h2>
+    <p data-i18n="invitation_text">Сіздерді ұлымыз <strong>Айдар</strong> мен келініміз <strong>Гүлсезімнің</strong> үйлену тойына арналған ақ дастарханымыздың қадірлі қонағы болуға шақырамыз!</p>
+
+    <blockquote data-i18n="invitation_poem">
+      Бақыт қонып ақ отау түндігіне,<br>
+      Тағы да сезім нұры күлді, міне.<br>
+      Қол ұстасты жұбайлар салтанатпен,<br>
+      Жарастығы сай келіп бір-біріне.
+    </blockquote>
+
+    <h3 data-i18n="day_title">Той күні:</h3>
+    <p data-i18n="day_time">2025 жылғы 5 қыркүйек, сағат 18:00</p>
+
+    <h3 data-i18n="address_title">Мекен-жайымыз:</h3>
+    <p data-i18n="address_text">Amira Grand Hall мейрамханасы, Ақтөбе қаласы</p>
+
+    <div class="map-wrapper">
+      <iframe src="https://2gis.kz/embed/firm/70000001044509117" width="100%" height="300" frameborder="0" style="border-radius: 12px;"></iframe>
+    </div>
+
+    <h3 data-i18n="confirm_title">Тойға келуіңізді растауыңызды сұраймыз:</h3>
+
+    <form method="POST" action="/submit">
+      <input type="text" name="name" data-i18n-placeholder="form_name" required>
+      <input type="tel" name="phone" data-i18n-placeholder="form_phone" required
+       pattern="^(\+7|8)\d{10}$" maxlength="12" placeholder="+77000000000">
+
+
+      <label data-i18n="relation_question">Кім болып келесіз?</label>
+      <select name="relation" required>
+        <option disabled selected data-i18n="relation_select">Таңдаңыз</option>
+        <option value="Жақын туыс" data-i18n="relation_zhakyn">Жақын туыс</option>
+        <option value="Нағашы жұрт" data-i18n="relation_nagasy">Нағашы жұрт</option>
+        <option value="Құда-жекжат" data-i18n="relation_kuda">Құда-жекжат</option>
+        <option value="Ағайын-туыс (Әке жағынан)" data-i18n="relation_ake">Ағайын-туыс (Әке жағынан)</option>
+        <option value="Ағайын-туыс (Шеше жағынан)" data-i18n="relation_sheshe">Ағайын-туыс (Шеше жағынан)</option>
+        <option value="Достар (Күйеу жігіттің достары)" data-i18n="relation_dostar_groom">Достар (Күйеу жігіттің достары)</option>
+        <option value="Достар (Қалыңдықтың достары)" data-i18n="relation_dostar_bride">Достар (Қалыңдықтың достары)</option>
+        <option value="Әріптестер" data-i18n="relation_aryp">Әріптестер</option>
+        <option value="Көрші-қолаң" data-i18n="relation_korshi">Көрші-қолаң</option>
+      </select>
+
+      <textarea name="comment" rows="3" data-i18n-placeholder="form_comment"></textarea>
+
+      <h3 data-i18n="gift_label">Қонақ кәде сомасы</h3>
+      <div class="gift-options">
+        <div class="gift-btns">
+          <button type="button" class="gift-btn" data-value="20000">20 000 ₸</button>
+          <button type="button" class="gift-btn" data-value="30000">30 000 ₸</button>
+          <button type="button" class="gift-btn" data-value="40000">40 000 ₸</button>
+        </div>
+        <div class="gift-center-btn">
+          <button type="button" class="gift-btn" data-value="50000">50 000 ₸ +</button>
+        </div>
+        <input type="hidden" name="gift" required>
+      </div>
+
+      <button type="submit" data-i18n="form_send">Жіберу</button>
+    </form>
+  </div>
+
+  <div class="owners-hero">
+    <h2 data-i18n="owners_title">ТОЙ ИЕЛЕРІ</h2>
+    <p class="owners-names">Асылхан & Алтынгүл</p>
+    <p class="owners-message" data-i18n="owners_message">Тойымыздың қадірлі қонағы болыңыз!</p>
+  </div>
+
+  <script src="{{ url_for('static', filename='petals.js') }}"></script>
+  <script src="{{ url_for('static', filename='i18n.js') }}"></script>
+  <script src="{{ url_for('static', filename='lang.js') }}"></script>
+<script src="{{ url_for('static', filename='form-validation.js') }}"></script>
+<script src="{{ url_for('static', filename='validation.js') }}"></script>
+
+</body>
+</html>

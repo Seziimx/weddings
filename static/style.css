@@ -1,0 +1,340 @@
+body {
+  margin: 0;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-weight: 300;
+  background: linear-gradient(135deg, #fff0f6, #fce8f0);
+  color: #333;
+}
+
+.hero {
+  background: url("https://img.freepik.com/free-photo/beautiful-wedding-shoes-dress-flower-bouquet_8353-10190.jpg?semt=ais_hybrid&w=740") center/cover no-repeat;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 30px 20px;
+}
+
+.hero h2 {
+  color: #fff;
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+  margin-bottom: 24px;
+  font-size: 26px;
+  letter-spacing: 1px;
+}
+
+
+.hero, .invitation-section, .map-wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+
+h1 {
+  font-size: 35px;
+  color: #fff;
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+  margin-bottom: 10px;
+}
+
+.date, .venue {
+  color: #fff;
+  font-size: 20px;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.4);
+  margin: 5px 0;
+  padding-right: 10px;
+  padding-left: 10px;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 14px 28px;
+  background: #ec4899;
+  color: #fff;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.lang-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #ec4899;
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.invitation-section {
+  padding: 40px 20px;
+  text-align: center;
+  max-width: 600px;
+  margin: auto;
+}
+
+.invitation-section h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.invitation-section blockquote {
+  font-style: italic;
+  background: rgba(255,255,255,0.3);
+  padding: 15px;
+  border-left: 4px solid #ec4899;
+  margin: 20px 0;
+  border-radius: 12px;
+}
+
+.invitation-section form {
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.invitation-section form input,
+.invitation-section form select,
+.invitation-section form textarea {
+  width: 100%;
+  max-width: 100%; /* чтобы не перепрыгивали предел формы */
+  padding: 14px 16px;
+  margin: 10px 0;
+  border: 1px solid rgba(255, 182, 193, 0.6);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.7);
+  font-size: 16px;
+  color: #333;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.invitation-section form input::placeholder,
+.invitation-section form textarea::placeholder {
+  color: #666;
+}
+
+.invitation-section form input:focus,
+.invitation-section form textarea:focus,
+.invitation-section form select:focus {
+  outline: none;
+  border-color: #ec4899;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 8px rgba(236, 72, 153, 0.2);
+}
+
+
+
+.invitation-section form button {
+  padding: 16px;
+  background: #ec4899;
+  color: #fff;
+  font-size: 18px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.map-wrapper {
+  margin: 20px 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+#petals-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* <-- опускаем под контент */
+}
+
+
+.gift-btns {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 14px 0;
+}
+
+.gift-btn {
+  padding: 10px 18px;
+  border: 2px solid #ec4899;
+  background: #fff;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.gift-btn:hover {
+  background: #ec4899;
+  color: #fff;
+}
+
+.gift-btn.active {
+  background: #ec4899;
+  color: #fff;
+  box-shadow: 0 0 8px rgba(0,0,0,0.2);
+}
+
+.gift-center-btn {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0 10px 0; /* вот сюда добавили отступ сверху и снизу */
+}
+
+form button[type="submit"] {
+  margin-top: 20px;
+}
+
+.gift-btn.active {
+  background-color: #032a7a;
+  color: #fff;
+}
+
+
+
+
+
+
+
+.owners-hero {
+  background: url("https://img.freepik.com/free-photo/beautiful-wedding-shoes-dress-flower-bouquet_8353-10190.jpg?semt=ais_hybrid&w=740") center/cover no-repeat;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 30px 20px;
+}
+
+.owners-hero h2,
+.owners-hero p {
+  color: #fff;
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+  margin: 10px 0;
+}
+
+.owners-hero .owners-names {
+  font-size: 29px;
+  font-weight: 700;
+}
+
+.owners-hero .owners-message {
+  font-size: 18px;
+}
+
+
+
+.invitation-section strong {
+  color: #ec4899;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.hero h1, .hero p, .hero a {
+  animation: fadeIn 1s ease forwards;
+  opacity: 0;
+}
+
+.hero h1 {
+  animation-delay: 0.2s;
+}
+.hero p {
+  animation-delay: 0.4s;
+}
+.hero a {
+  animation-delay: 0.6s;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+
+
+
+
+
+
+
+
+.thanks-hero {
+  background: url("https://img.freepik.com/free-photo/beautiful-wedding-shoes-dress-flower-bouquet_8353-10190.jpg?semt=ais_hybrid&w=740") center/cover no-repeat;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.thanks-hero h1 {
+  font-size: 100px;
+  color: #c026d3;
+  margin-bottom: 20px;
+}
+
+.thanks-hero p.date {
+  font-size: 50px;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.thanks-hero .btn {
+  font-size: 40px;
+  padding: 14px 28px;
+  background: #ec4899;
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.thanks-hero .btn:hover {
+  background: #db2777;
+}
+
+@media (max-width: 480px) {
+  .thanks-hero h1 {
+    font-size: 32px;
+  }
+
+  .thanks-hero p.date {
+    font-size: 16px;
+  }
+
+  .thanks-hero .btn {
+    font-size: 14px;
+    padding: 12px 24px;
+  }
+}
+

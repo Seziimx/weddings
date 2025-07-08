@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8">
+  <title>Қонақтар тізімі</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      background: #fdfdfd;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+    th {
+      background: #ec4899;
+      color: #fff;
+    }
+    tr:nth-child(even) {
+      background: #f9f9f9;
+    }
+    h1 {
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>Қонақтар тізімі</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Аты-жөні</th>
+        <th>Телефон</th>
+        <th>Келуі</th>
+        <th>Тілегі</th>
+        <th>Қонақ кәде</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for guest in guests %}
+      <tr>
+        <td>{{ guest[0] }}</td>
+        <td>{{ guest[1] }}</td>
+        <td>{{ guest[2] }}</td>
+        <td>{{ guest[3] }}</td>
+        <td>{{ guest[4] }}</td>
+        <td>{{ guest[5] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+</html>
