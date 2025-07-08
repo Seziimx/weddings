@@ -2,12 +2,15 @@ from flask import Flask, render_template, request, redirect, url_for, Response
 import sqlite3
 import os
 import requests
+from dotenv import load_dotenv
+# Загружаем переменные из .env (локально)
+load_dotenv()
 
 app = Flask(__name__)
 
 # Telegram Bot Token и твой chat_id
-BOT_TOKEN = "7673390281:AAFMheucKDzWqIlss4Lp9jsn-Nou463io7Y"
-CHAT_ID = "1131108787"
+token = os.getenv("BOT_TOKEN")
+chat_id = os.getenv("CHAT_ID")
 
 # База данных — если файла нет, создаём таблицу
 def init_db():
@@ -78,6 +81,9 @@ def show_guests():
 
 # Функция отправки в Telegram
 def send_to_telegram(name, phone, relation, comment, gift):
+    token = os.getenv("BOT_TOKEN")
+    chat_id = os.getenv("CHAT_ID")
+    
     message = f"""
 📋 Жаңа қонақ!
 👤 Аты: {name}
@@ -86,9 +92,10 @@ def send_to_telegram(name, phone, relation, comment, gift):
 🎁 Кәде: {gift} ₸
 📝 Тілегі: {comment if comment else '—'}
     """
-    url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
+
+    url = f"https://api.telegram.org/bot{token}/sendMessage"
     payload = {
-        "chat_id": CHAT_ID,
+        "chat_id": chat_id,
         "text": message
     }
     try:
