@@ -3,15 +3,14 @@ import sqlite3
 import os
 import requests
 from dotenv import load_dotenv
-# Загружаем переменные из .env (локально)
+# Загружаем .env переменные
 load_dotenv()
 
+# Читаем переменные
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+CHAT_ID = os.getenv("CHAT_ID")
+
 app = Flask(__name__)
-
-# Telegram Bot Token и твой chat_id
-token = os.getenv("BOT_TOKEN")
-chat_id = os.getenv("CHAT_ID")
-
 # База данных — если файла нет, создаём таблицу
 def init_db():
     if not os.path.exists("guests.db"):
@@ -64,20 +63,42 @@ def submit():
 def thanks():
     return render_template("thanks.html")
 
-# Просмотр гостей (защищено логином)
-@app.route("/guests")
-def show_guests():
-    auth = request.authorization
-    if not auth or not (auth.username == "admin" and auth.password == "1234"):
-        return Response("Тек қана әкімшілік үшін 👮‍♀️", 401, {"WWW-Authenticate": 'Basic realm="Login Required"'})
+# Отправка сообщения в Telegram
+def send_message(chat_id, text):
+    url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
+    payload = {"chat_id": chat_id, "text": text}
+    requests.post(url, data=payload)
 
-    conn = sqlite3.connect("guests.db")
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM guests")
-    guests = cursor.fetchall()
-    conn.close()
+# Webhook от Telegram
+@app.route(f"/{BOT_TOKEN}", methods=["POST"])
+def telegram_webhook():
+    data = request.get_json()
 
-    return render_template("guests.html", guests=guests)
+    if "message" in data:
+        from_chat = str(data["message"]["chat"]["id"])
+        text = data["message"].get("text", "")
+
+        if from_chat != CHAT_ID:
+            send_message(from_chat, "Тек қана әкімшілік үшін 👮‍♀️")
+            return "ok", 200
+
+        if text == "/guests":
+            conn = sqlite3.connect("guests.db")
+            cursor = conn.cursor()
+            cursor.execute("SELECT name, phone, relation, gift FROM guests")
+            rows = cursor.fetchall()
+            conn.close()
+
+            if not rows:
+                send_message(from_chat, "Қонақтар әзірге тіркелмеген.")
+            else:
+                message = "📋 Қонақтар тізімі:\n\n"
+                for row in rows:
+                    message += f"👤 {row[0]} | 📱 {row[1]} | 🤝 {row[2]} | 🎁 {row[3]} ₸\n"
+                send_message(from_chat, message)
+
+    return "ok", 200
+
 
 # Функция отправки в Telegram
 def send_to_telegram(name, phone, relation, comment, gift):

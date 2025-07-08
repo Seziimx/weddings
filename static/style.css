@@ -17,6 +17,15 @@ body {
   padding: 30px 20px;
 }
 
+#petals-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
 .hero h2 {
   color: #fff;
   text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
@@ -214,6 +223,7 @@ form button[type="submit"] {
 
 
 .owners-hero {
+  position: relative;
   background: url("https://img.freepik.com/free-photo/beautiful-wedding-shoes-dress-flower-bouquet_8353-10190.jpg?semt=ais_hybrid&w=740") center/cover no-repeat;
   min-height: 100vh;
   display: flex;
@@ -222,10 +232,23 @@ form button[type="submit"] {
   align-items: center;
   text-align: center;
   padding: 30px 20px;
+  overflow: hidden;
+}
+
+.owners-hero canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
 }
 
 .owners-hero h2,
 .owners-hero p {
+  position: relative;
+  z-index: 2;
   color: #fff;
   text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
   margin: 10px 0;
