@@ -2,8 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for, Response
 import sqlite3
 import os
 import requests
-import pandas as pd
 from dotenv import load_dotenv
+
 # Загружаем .env переменные
 load_dotenv()
 
@@ -64,11 +64,7 @@ def submit():
 def thanks():
     return render_template("thanks.html")
 
-def export_guests_to_excel():
-    conn = sqlite3.connect("guests.db")
-    df = pd.read_sql_query("SELECT * FROM guests", conn)
-    conn.close()
-    df.to_excel("guests.xlsx", index=False)
+
 
 
 # Отправка сообщения в Telegram
@@ -76,15 +72,7 @@ def send_message(chat_id, text):
     url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
     payload = {"chat_id": chat_id, "text": text}
     requests.post(url, data=payload)
- # Отправка сообщения в Telegram ехсел гости   
-def send_excel_file(chat_id):
-    url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendDocument"
-    files = {'document': open("guests.xlsx", 'rb')}
-    data = {"chat_id": chat_id}
-    try:
-        requests.post(url, files=files, data=data)
-    except Exception as e:
-        print(f"❌ Excel файл жіберу қатесі: {e}")
+
 
 # Webhook от Telegram
 @app.route(f"/{BOT_TOKEN}", methods=["POST"])
@@ -113,14 +101,6 @@ def telegram_webhook():
             for idx, row in enumerate(rows, start=1):
                 message += f"{idx}. 👤 {row[0]} | 📱 {row[1]} | 🤝 {row[2]} | 🎁 {row[3]} ₸\n"
             send_message(from_chat, message)
-
-    elif text == "/guestexc":
-        export_guests_to_excel()  # сначала обновим файл
-        if os.path.exists("guests.xlsx"):
-            send_excel_file(from_chat)
-        else:
-            send_message(from_chat, "Қонақтар тізімі Excel файлы әзірге жоқ.")
-
 
     return "ok", 200
 
